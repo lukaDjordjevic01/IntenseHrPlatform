@@ -1,8 +1,6 @@
-package com.example.internshipIntense.dto.Candidate;
+package com.example.internshipIntense.dto.candidate;
 
-import com.example.internshipIntense.dto.Skill.SkillDto;
-import com.example.internshipIntense.model.skill.Skill;
-import jakarta.persistence.*;
+import com.example.internshipIntense.dto.skill.SkillDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -10,9 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class JobCandidateDto {
 

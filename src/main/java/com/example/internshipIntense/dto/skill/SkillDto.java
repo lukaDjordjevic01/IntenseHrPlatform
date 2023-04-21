@@ -1,4 +1,4 @@
-package com.example.internshipIntense.dto.Skill;
+package com.example.internshipIntense.dto.skill;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Pattern;
