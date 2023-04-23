@@ -8,7 +8,7 @@ public class SkillDto {
     @Digits(integer=10, fraction=0, message="Id must be a number")
     private Integer id;
 
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "The name must contain only letters")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "The name must contain only letters")
     private String name;
 
 

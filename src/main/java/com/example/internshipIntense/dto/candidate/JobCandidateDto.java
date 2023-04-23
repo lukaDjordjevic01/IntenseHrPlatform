@@ -14,10 +14,9 @@ public class JobCandidateDto {
 
     private Integer id;
 
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "The name must contain only letters")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "The name must contain only letters")
     private String name;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 
     @Size(min = 5, max = 20)

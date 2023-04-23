@@ -19,12 +19,11 @@ public class JobCandidate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name")
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "The name must contain only letters")
+    @Column(name = "full_name")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "The name must contain only letters")
     private String name;
 
     @Column(name = "date_of_birth")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 
     @Column(name = "contact_number")
