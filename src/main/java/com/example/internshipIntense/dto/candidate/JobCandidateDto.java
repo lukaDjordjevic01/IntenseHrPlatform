@@ -1,6 +1,7 @@
 package com.example.internshipIntense.dto.candidate;
 
 import com.example.internshipIntense.dto.skill.SkillDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -12,17 +13,21 @@ import java.util.List;
 
 public class JobCandidateDto {
 
+    @Schema(description = "Job candidate ID", example = "123", accessMode = Schema.AccessMode.READ_ONLY)
     private Integer id;
 
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "The name must contain only letters")
+    @Schema(description = "Job candidate name", example = "Jon Smith")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "The name must contain only letters")
     private String name;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Schema(description = "Job candidate date of birth", example = "1999-01-01")
     private LocalDate dateOfBirth;
 
+    @Schema(description = "Job candidate contact number", example = "+38169125365")
     @Size(min = 5, max = 20)
     private String contactNumber;
 
+    @Schema(description = "Job candidate email", example = "johnsmith@gmail.com")
     @Email
     private String email;
 

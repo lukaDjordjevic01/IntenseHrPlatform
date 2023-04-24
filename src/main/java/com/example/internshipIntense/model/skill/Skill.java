@@ -16,8 +16,8 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name")
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "The name must contain only letters")
+    @Column(name = "skill_name")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "The name must contain only letters")
     private String name;
 
     @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
