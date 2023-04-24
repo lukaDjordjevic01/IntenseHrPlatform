@@ -18,7 +18,7 @@ public interface JobCandidateService {
 
     public List<JobCandidateDto> findAll();
 
-    public JobCandidateDto addJobCandidate(JobCandidateDto jobCandidateDto) throws EmailAlreadyExistsException;
+    public JobCandidateDto addJobCandidate(JobCandidateDto jobCandidateDto) throws EmailAlreadyExistsException, SkillNotFoundException;
 
     public JobCandidateDto updateJobCandidateWithSkill(Integer candidateId, Integer skillId) throws JobCandidateNotFoundException, JobCandidateAlreadyHasSkillException, SkillNotFoundException;
 

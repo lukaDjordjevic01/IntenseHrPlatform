@@ -1,5 +1,6 @@
 package com.example.internshipIntense.service.skill;
 
+import com.example.internshipIntense.dto.skill.SkillCreationDto;
 import com.example.internshipIntense.dto.skill.SkillDto;
 import com.example.internshipIntense.exception.skill.SkillNotFoundException;
 import com.example.internshipIntense.model.skill.Skill;
@@ -14,7 +15,7 @@ public interface SkillService {
 
     public List<SkillDto> findAll();
 
-    public SkillDto addSkill(SkillDto skillDto);
+    public SkillDto addSkill(SkillCreationDto skillCreationDto);
 
     public void removeSkill(Integer id) throws SkillNotFoundException;
 

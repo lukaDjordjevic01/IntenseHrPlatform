@@ -1,5 +1,6 @@
 package com.example.internshipIntense.service.skill;
 
+import com.example.internshipIntense.dto.skill.SkillCreationDto;
 import com.example.internshipIntense.dto.skill.SkillDto;
 import com.example.internshipIntense.exception.skill.SkillNotFoundException;
 import com.example.internshipIntense.mappers.skill.SkillDtoMapper;
@@ -38,8 +39,8 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public SkillDto addSkill(SkillDto skillDto) {
-        Skill skill = SkillDtoMapper.fromSkillDtoToSkill(skillDto);
+    public SkillDto addSkill(SkillCreationDto skillCreationDto) {
+        Skill skill = SkillDtoMapper.fromSkillCreationDtoToSkill(skillCreationDto);
         return SkillDtoMapper.fromSkillToSkillDto(skillRepository.save(skill));
     }
 

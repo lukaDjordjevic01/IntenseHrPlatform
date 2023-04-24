@@ -1,5 +1,6 @@
 package com.example.internshipIntense.mappers.skill;
 
+import com.example.internshipIntense.dto.skill.SkillCreationDto;
 import com.example.internshipIntense.dto.skill.SkillDto;
 import com.example.internshipIntense.model.skill.Skill;
 import org.modelmapper.ModelMapper;
@@ -24,6 +25,10 @@ public class SkillDtoMapper {
 
     public static Skill fromSkillDtoToSkill(SkillDto skillDto){
         return modelMapper.map(skillDto, Skill.class);
+    }
+
+    public static Skill fromSkillCreationDtoToSkill(SkillCreationDto skillCreationDto){
+        return modelMapper.map(skillCreationDto, Skill.class);
     }
 
 

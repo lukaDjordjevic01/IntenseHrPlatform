@@ -1,6 +1,7 @@
 package com.example.internshipIntense.service.candidate;
 
 import com.example.internshipIntense.dto.candidate.JobCandidateDto;
+import com.example.internshipIntense.dto.skill.SkillDto;
 import com.example.internshipIntense.exception.candidate.EmailAlreadyExistsException;
 import com.example.internshipIntense.exception.candidate.JobCandidateAlreadyHasSkillException;
 import com.example.internshipIntense.exception.candidate.JobCandidateHasNoSkillException;
@@ -14,7 +15,9 @@ import com.example.internshipIntense.service.skill.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,10 +42,22 @@ public class JobCandidateServiceImp implements JobCandidateService {
     }
 
     @Override
-    public JobCandidateDto addJobCandidate(JobCandidateDto jobCandidateDto) throws EmailAlreadyExistsException {
+    public JobCandidateDto addJobCandidate(JobCandidateDto jobCandidateDto) throws EmailAlreadyExistsException,
+            SkillNotFoundException{
+
         JobCandidate newCandidate = JobCandidateDtoMapper.fromJobCandidateDtoToJobCandidate(jobCandidateDto);
         if (jobCandidateRepository.findByEmail(newCandidate.getEmail()).isPresent())
             throw new EmailAlreadyExistsException("Candidate with this e-mail already exists!");
+
+        if (!jobCandidateDto.getSkills().isEmpty()){
+            Set<Skill> skills = new HashSet<>();
+            for (Skill skill : newCandidate.getSkills()){
+                Skill findSkill = skillService.findById(skill.getId());
+                skills.add(findSkill);
+            }
+            newCandidate.setSkills(skills);
+        }
+
         return JobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(jobCandidateRepository.save(newCandidate));
     }
 
