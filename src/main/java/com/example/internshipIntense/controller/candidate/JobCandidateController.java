@@ -77,7 +77,7 @@ public class JobCandidateController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
             })
     })
-    @PutMapping(value = "updateWithSkill/{candidateId}/{skillId}")
+    @PutMapping(value = "/updateWithSkill/{candidateId}/{skillId}")
     public ResponseEntity<?> updateJobCandidateWithSkill(@PathVariable Integer candidateId,
                                                          @PathVariable Integer skillId){
         try {
