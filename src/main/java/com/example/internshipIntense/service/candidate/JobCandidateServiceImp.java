@@ -29,6 +29,9 @@ public class JobCandidateServiceImp implements JobCandidateService {
     @Autowired
     private SkillService skillService;
 
+    @Autowired
+    private JobCandidateDtoMapper jobCandidateDtoMapper;
+
     @Override
     public JobCandidate findById(Integer id) throws JobCandidateNotFoundException {
         return jobCandidateRepository.findById(id).orElseThrow(() ->
@@ -37,7 +40,8 @@ public class JobCandidateServiceImp implements JobCandidateService {
 
     @Override
     public List<JobCandidateDto> findAll() {
-        return jobCandidateRepository.findAll().stream().map(JobCandidateDtoMapper::fromJobCandidateToJobCandidateDto)
+        return jobCandidateRepository.findAll().stream().map(jobCandidate ->
+                        jobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(jobCandidate))
                 .collect(Collectors.toList());
     }
 
@@ -45,7 +49,7 @@ public class JobCandidateServiceImp implements JobCandidateService {
     public JobCandidateDto addJobCandidate(JobCandidateDto jobCandidateDto) throws EmailAlreadyExistsException,
             SkillNotFoundException{
 
-        JobCandidate newCandidate = JobCandidateDtoMapper.fromJobCandidateDtoToJobCandidate(jobCandidateDto);
+        JobCandidate newCandidate = jobCandidateDtoMapper.fromJobCandidateDtoToJobCandidate(jobCandidateDto);
         if (jobCandidateRepository.findByEmail(newCandidate.getEmail()).isPresent())
             throw new EmailAlreadyExistsException("Candidate with this e-mail already exists!");
 
@@ -58,7 +62,7 @@ public class JobCandidateServiceImp implements JobCandidateService {
             newCandidate.setSkills(skills);
         }
 
-        return JobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(jobCandidateRepository.save(newCandidate));
+        return jobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(jobCandidateRepository.save(newCandidate));
     }
 
     @Override
@@ -70,7 +74,7 @@ public class JobCandidateServiceImp implements JobCandidateService {
             throw new JobCandidateAlreadyHasSkillException("Job candidate already has this skill!");
         jobCandidate.getSkills().add(skill);
         JobCandidate updatedCandidate = jobCandidateRepository.save(jobCandidate);
-        return JobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(updatedCandidate);
+        return jobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(updatedCandidate);
     }
 
     @Override
@@ -82,7 +86,7 @@ public class JobCandidateServiceImp implements JobCandidateService {
             throw new JobCandidateHasNoSkillException("Candidate doesn't have given skill!");
         jobCandidate.getSkills().remove(skill);
         JobCandidate updatedCandidate = jobCandidateRepository.save(jobCandidate);
-        return JobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(updatedCandidate);
+        return jobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(updatedCandidate);
     }
 
     @Override
@@ -93,7 +97,7 @@ public class JobCandidateServiceImp implements JobCandidateService {
 
     @Override
     public JobCandidateDto searchJobCandidateByName(String name) throws JobCandidateNotFoundException {
-        return JobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(jobCandidateRepository
+        return jobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(jobCandidateRepository
                 .findByNameIgnoreCase(name).orElseThrow(()
                         -> new JobCandidateNotFoundException("Candidate with this name doesn't exist")));
     }
@@ -110,7 +114,8 @@ public class JobCandidateServiceImp implements JobCandidateService {
         if (jobCandidates.isEmpty())
             throw new JobCandidateNotFoundException("There are no candidates with given skills!");
 
-        return jobCandidates.stream().map(JobCandidateDtoMapper::fromJobCandidateToJobCandidateDto)
+        return jobCandidates.stream().map(jobCandidate ->
+                        jobCandidateDtoMapper.fromJobCandidateToJobCandidateDto(jobCandidate))
                 .collect(Collectors.toList());
 
     }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SkillDtoMapper {
 
-    private static ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     public SkillDtoMapper(ModelMapper modelMapper) {
@@ -19,15 +19,15 @@ public class SkillDtoMapper {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
-    public static SkillDto fromSkillToSkillDto(Skill skill){
+    public  SkillDto fromSkillToSkillDto(Skill skill){
         return modelMapper.map(skill, SkillDto.class);
     }
 
-    public static Skill fromSkillDtoToSkill(SkillDto skillDto){
+    public  Skill fromSkillDtoToSkill(SkillDto skillDto){
         return modelMapper.map(skillDto, Skill.class);
     }
 
-    public static Skill fromSkillCreationDtoToSkill(SkillCreationDto skillCreationDto){
+    public  Skill fromSkillCreationDtoToSkill(SkillCreationDto skillCreationDto){
         return modelMapper.map(skillCreationDto, Skill.class);
     }
 
