@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.Objects;
+
 public class SkillDto {
 
     @Schema(description = "Skill ID", example = "123")
@@ -46,4 +48,18 @@ public class SkillDto {
     }
 
     //endregion
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SkillDto skillDto = (SkillDto) o;
+        return Objects.equals(id, skillDto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

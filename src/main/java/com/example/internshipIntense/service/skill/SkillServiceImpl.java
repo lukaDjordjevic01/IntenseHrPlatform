@@ -25,6 +25,9 @@ public class SkillServiceImpl implements SkillService {
     @Autowired
     private JobCandidateRepository jobCandidateRepository;
 
+    @Autowired
+    private SkillDtoMapper skillDtoMapper;
+
     @Override
     public Skill findById(Integer id) throws SkillNotFoundException {
         return skillRepository.findById(id).orElseThrow(()
@@ -34,14 +37,14 @@ public class SkillServiceImpl implements SkillService {
     @Override
     public List<SkillDto> findAll() {
         return skillRepository.findAll().stream()
-                .map(SkillDtoMapper::fromSkillToSkillDto).collect(Collectors.toList());
+                .map(skill -> skillDtoMapper.fromSkillToSkillDto(skill)).collect(Collectors.toList());
 
     }
 
     @Override
     public SkillDto addSkill(SkillCreationDto skillCreationDto) {
-        Skill skill = SkillDtoMapper.fromSkillCreationDtoToSkill(skillCreationDto);
-        return SkillDtoMapper.fromSkillToSkillDto(skillRepository.save(skill));
+        Skill skill = skillDtoMapper.fromSkillCreationDtoToSkill(skillCreationDto);
+        return skillDtoMapper.fromSkillToSkillDto(skillRepository.save(skill));
     }
 
     @Override

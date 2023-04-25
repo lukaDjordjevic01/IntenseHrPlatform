@@ -13,7 +13,10 @@ import java.util.stream.Collectors;
 @Component
 public class JobCandidateDtoMapper {
 
-    private static ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    private SkillDtoMapper skillDtoMapper;
 
     @Autowired
     public JobCandidateDtoMapper(ModelMapper modelMapper) {
@@ -21,14 +24,14 @@ public class JobCandidateDtoMapper {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
-    public static JobCandidateDto fromJobCandidateToJobCandidateDto(JobCandidate jobCandidate){
+    public JobCandidateDto fromJobCandidateToJobCandidateDto(JobCandidate jobCandidate){
         JobCandidateDto jobCandidateDto = modelMapper.map(jobCandidate, JobCandidateDto.class);
         jobCandidateDto.setSkills(jobCandidate.getSkills().stream()
-                .map(SkillDtoMapper::fromSkillToSkillDto).collect(Collectors.toList()));
+                .map(skill -> skillDtoMapper.fromSkillToSkillDto(skill)).collect(Collectors.toList()));
         return jobCandidateDto;
     }
 
-    public static JobCandidate fromJobCandidateDtoToJobCandidate(JobCandidateDto jobCandidateDto){
+    public JobCandidate fromJobCandidateDtoToJobCandidate(JobCandidateDto jobCandidateDto){
         return modelMapper.map(jobCandidateDto, JobCandidate.class);
     }
 }
