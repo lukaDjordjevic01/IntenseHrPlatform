@@ -4,6 +4,9 @@ This is a Java (Maven) project for an HR platform that allows adding, updating, 
 ## Author
 Luka Đorđević
 
+## Swagger
+While the app is running you can access swagger specification here: http://localhost:8080/swagger-ui/index.html#/
+
 ## Requirements
 Each job candidate has a name, date of birth, contact number, email, and a list of skills they possess. Each skill has a name.
 
